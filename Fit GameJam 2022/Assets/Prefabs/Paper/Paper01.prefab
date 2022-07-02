@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 690665677009995917}
   - component: {fileID: 157284778788664744}
   m_Layer: 0
-  m_Name: Paper
-  m_TagString: Untagged
+  m_Name: Paper01
+  m_TagString: rightSide
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -25,8 +25,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5142175654230504975}
   m_LocalRotation: {x: -0, y: -0, z: 0.1596379, w: 0.9871757}
-  m_LocalPosition: {x: 5.85, y: -3.09, z: 0}
-  m_LocalScale: {x: 6.2263265, y: 8.4960165, z: 6.2263265}
+  m_LocalPosition: {x: 5.32, y: -1.64, z: 0}
+  m_LocalScale: {x: 1.1362365, y: 1.1507003, z: 0.8432936}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -70,10 +70,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_SortingLayerID: -945629377
+  m_SortingLayer: 1
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 9bb23a5cd4319b34fa15f4c3c85f7f84, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
