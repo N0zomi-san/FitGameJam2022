@@ -11,7 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Character
+  - 
   - 
   - 
   - 
@@ -41,6 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: SpriteLayer
-    uniqueID: 3349337919
+  - name: Top
+    uniqueID: 2571287149
     locked: 0
