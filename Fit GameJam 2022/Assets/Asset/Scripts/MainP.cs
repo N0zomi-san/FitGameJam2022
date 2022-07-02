@@ -7,18 +7,18 @@ public class MainP : MonoBehaviour
     // Start is called before the first frame update
      public float mousespeed = 20f;
     Vector2 lastClickedPos;
-    public Vector3 StartPos;
+    public Vector3 StartPos; // ของกระดาษ
     public Vector3 EndPos;
 
     public GameObject Stamp;
     public GameObject Paper;
-    public GameObject Certified;
-    GameObject b;   
-    GameObject c;
-    GameObject d;
-    bool De;
-    bool Gold;
-    int Points;
+    public GameObject Certified; // ตราพยานาก
+    GameObject b; // Clone Stamp
+    GameObject c; // Clone Paper
+    GameObject d; // Clone พยานาก
+    bool De; // Debounce
+    bool Gold; // มี พยานาก
+    int Points; // 
 
     Ray ray;
     RaycastHit hit;
