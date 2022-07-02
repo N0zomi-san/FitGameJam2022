@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
         if (hit.collider == null){return;}
         if (hit.collider.tag == "rightSide"){
             ArmFollow();
+
         }
     }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Approved(){
-
+        
     }
 
     void Denied(){
