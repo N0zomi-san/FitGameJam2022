@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5142175654230504975, guid: 0dec2c62e02163c46a89bec1a5807235, type: 3}
       propertyPath: m_TagString
-      value: rightSide
+      value: Paper
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dec2c62e02163c46a89bec1a5807235, type: 3}
