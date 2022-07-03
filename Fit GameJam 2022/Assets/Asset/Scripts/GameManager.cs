@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -32,9 +33,9 @@ public class GameManager : MonoBehaviour
 
     #region  UI & Texts Management
 
-    //public Text playedPaper_Text; // text to show how many paper player has played
-    //public Text playedNakApproved_Text; // text show how many nak's paper player has approved
-    //public Text falseDecision_Text; // Text show how many times player has made wrong decision on paper
+    public TMP_Text playedPaper_Text; // text to show how many paper player has played
+    public TMP_Text playedNakApproved_Text; // text show how many nak's paper player has approved
+    public TMP_Text falseDecision_Text; // Text show how many times player has made wrong decision on paper
 
     #endregion
 
@@ -138,6 +139,9 @@ public class GameManager : MonoBehaviour
         Debug.Log("There is paper ? : " + thereIsPaper);
         Debug.Log("Nak paper : " + currentAmountNaksPaper);
         Debug.Log("paper amount : " + currentAmountPaper);
+        playedPaper_Text.text = (maxPaper-currentAmountPaper+1).ToString();
+        playedNakApproved_Text.text = (playedNakApproved).ToString();
+        falseDecision_Text.text = 0+"/"+3;
     }
 
     void CheckEndGame(){
