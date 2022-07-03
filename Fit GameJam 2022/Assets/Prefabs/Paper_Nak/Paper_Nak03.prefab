@@ -29,7 +29,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3732304531257880413, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_Name
-      value: Paper_Nak01
+      value: Paper_Nak03
       objectReference: {fileID: 0}
     - target: {fileID: 8555057109289463034, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_Sprite
@@ -53,19 +53,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9871757
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.1596379
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -77,7 +77,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9008006808058106335, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 18.372
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80dbc15b471b52348ba78f941f18fc72, type: 3}

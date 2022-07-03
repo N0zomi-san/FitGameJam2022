@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isNaksPaper: 0
   interacted: 0
+  naksMarkPos: {fileID: 0}
 --- !u!61 &-221962941284900762
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ Animator:
   m_GameObject: {fileID: 5142175654230504975}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 877878d6c20cac649a41eff3b0d8b0da, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

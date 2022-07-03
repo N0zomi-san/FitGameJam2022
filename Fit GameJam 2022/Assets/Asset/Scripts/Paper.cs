@@ -13,69 +13,72 @@ public class Paper : MonoBehaviour
     [Tooltip("Check if this is a Nak's paper")]
     [SerializeField] bool isNaksPaper; // If this paper is belong to Nak
     [HideInInspector]
-    public bool interacted = false;
-    bool playerMarked;
-    GameObject thisMark;
+    public bool interacted = false; // Check if player has make decision on this paper
+    GameObject thisMark; // Contain mark from the player when instantiate
+    [HideInInspector]
+    public Vector3 markPos; // Contain MousePosition from raycast to instantiate the mark on the paper
+    [HideInInspector]
+    public bool animatingState; // True if the paper is still in animationing
 
     [SerializeField] Transform naksMarkPos; // Position of Nak's mark on the paper
 
     public async void IamApproved(){ // Call from GameManager when player Approved this paper
         if(interacted){return;}
         if (isNaksPaper){
-            // -1 player's point
-            // Update UI's icons and numbers
-        }if (isNormalPaper){
-            // +1 player's point
-            // Update UI's icons and numbers
+            GameManager.mainManage.playerScore -= 1; // PlayerScore change
+            GameManager.mainManage.falseDecision += 1; // Player made the wrong choice
+            GameManager.mainManage.approvedNaksPaper += 1; // Player has approved a Nak's paper
+            Debug.Log("Is Nak's paper");
+        }else{
+            GameManager.mainManage.playerScore += 1; // PlayerScore change
+            Debug.Log("Is normal paper");
+            
         }
-        thisMark = Instantiate(GameManager.mainManage.approvedMark, transform.position, Quaternion.identity); // Geneate Approved mark
+        thisMark = Instantiate(GameManager.mainManage.approvedMark, markPos, Quaternion.identity); // Geneate Approved mark
+        thisMark.transform.SetParent(transform,true);
+
         GameManager.mainManage.playedPaper += 1;
-        // animate paper before destroy it
-        await Task.Delay(3000); // delay 3 seconds before destroy this paper
+        paperAnimator.SetTrigger("Ended");
+        await Task.Delay(2000); // delay 3 seconds before destroy this paper
         destroyMe();
     }
 
     public async void IamDenied(){ // Call from GameManager when player Deny this paper
         if(interacted){return;}
-        if (isNormalPaper){
-            // -1 player's point
-            // Update UI's icons and numbers
-        }if (isNaksPaper){
-            // +1 player's point
-            // Update UI's icons and numbers
+        if (isNaksPaper){
+            GameManager.mainManage.playerScore += 1; // PlayerScore change
+            GameManager.mainManage.deniedNaksPaper += 1; // Player has denied a Nak's paper
+            Debug.Log("Is Nak's paper");
+        }else{
+            GameManager.mainManage.playerScore -= 1; // PlayerScore change
+        GameManager.mainManage.falseDecision += 1; // Player made the wrong choice
+        Debug.Log("Is normal paper");
         }
-        thisMark = Instantiate(GameManager.mainManage.deniedMark, transform.position, Quaternion.identity); // Generate Denied mark
+        
+        thisMark = Instantiate(GameManager.mainManage.deniedMark, markPos, Quaternion.identity); // Generate Denied mark
+        thisMark.transform.SetParent(transform,true);
+
         GameManager.mainManage.playedPaper += 1;
-        // animate paper before destroy it
-        await Task.Delay(3000); // delay 3 seconds before destroy this paper
+        paperAnimator.SetTrigger("Ended");
+        await Task.Delay(2000); // delay 3 seconds before destroy this paper
         destroyMe();
     }
 
     void destroyMe(){
         GameManager.mainManage.thereIsPaper = false;
-        Debug.Log("Paper Destroyed!");
         Destroy(gameObject);
         Destroy(thisMark);
     }
 
-    async void waitForAnimation(string animationsCode){
-        // make function to compleate paper's animation before destroy it
-    }
-
-    void starterAnimate(){ // Animate when paper is spawned
-
-    }
-
-    void enderAnimate(){ // Animate when paper is about to destroyed
-
-    }
-
-    void Start()
+    async void Start()
     {
+        animatingState = true;
         thisSprite = GetComponent<SpriteRenderer>();
-        GameManager.mainManage.currentAmountPaper += 1;
+        paperAnimator = GetComponent<Animator>();
         GameManager.mainManage.thereIsPaper = true;
         paperAnimator = GetComponent<Animator>();
+        await Task.Delay(3000);
+        animatingState = false;
     }
 
     
