@@ -7,7 +7,7 @@ public class Button : MonoBehaviour
 {
     public GameObject Canvas;
     public GameObject Tutorial;
-    public float TutorialTimes = 3f;
+    //public float TutorialTimes = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,7 +22,6 @@ public class Button : MonoBehaviour
 
     public void NextScene()
     {
-        StartCoroutine(StartTutorial());
         Canvas.SetActive(false);
         Tutorial.SetActive(true);
     }
@@ -31,9 +30,4 @@ public class Button : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator StartTutorial()
-    {
-        yield return new WaitForSecondsRealtime(TutorialTimes);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
 }
