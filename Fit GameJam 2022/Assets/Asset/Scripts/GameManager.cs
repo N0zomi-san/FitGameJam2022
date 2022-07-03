@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     [Space(3)]
     [Header("Canvas Objects")]
     public  GameObject gameOverCanvas; // Canvas of Game over's panel
+    public GameObject gameEndedCanvas; // Canvas of Game Ended's Panel
     public GameObject iconCanvas; // Canvas contain Icons & scores
     public SpriteRenderer blackFadingSquare; // Sprite for fading black
     
@@ -64,16 +65,12 @@ public class GameManager : MonoBehaviour
 
     void SetCanvas(){ // Setting Canvas before the scene start
         gameOverCanvas.SetActive(false);
+        gameEndedCanvas.SetActive(false);
     }
 
-<<<<<<< Updated upstream
-    public TMP_Text playedPaper_Text; // text to show how many paper player has played
-    public TMP_Text playedNakApproved_Text; // text show how many nak's paper player has approved
-    public TMP_Text falseDecision_Text; // Text show how many times player has made wrong decision on paper
-=======
-    void CloseCanvas(){ // Close every Canvas
-        gameOverCanvas.SetActive(false);
-        iconCanvas.SetActive(false);
+    void OpenCloseCanvas(bool set){ // Close every Canvas
+        gameOverCanvas.SetActive(set);
+        iconCanvas.SetActive(set);
         
     }
     float elapsedTime; // Time elapsed when lerp started
@@ -103,7 +100,6 @@ public class GameManager : MonoBehaviour
             await Task.Delay(3000);
         }
         await Task.Delay(2000);
->>>>>>> Stashed changes
 
         // Destroy First Set
         Destroy(border01);
@@ -138,7 +134,7 @@ public class GameManager : MonoBehaviour
     }
     async void StartCutscene(string folderName){
         isCutScene = true;
-        CloseCanvas();
+        OpenCloseCanvas(false);
         Color setBlack = blackFadingSquare.color;
         setBlack.a = 1;
         blackFadingSquare.color = setBlack;
@@ -146,6 +142,8 @@ public class GameManager : MonoBehaviour
         //await Task.Delay(4000);
         Showing();
         await Task.Delay(30000);
+        OpenCloseCanvas(true);
+        SetCanvas();
         BlackFadingOut(fadingSeconds); // fading out
         isCutScene = false;
     }
@@ -161,6 +159,12 @@ public class GameManager : MonoBehaviour
     void GameOver(){
         Cursor.visible = true;
         gameOverCanvas.SetActive(true);
+        iconCanvas.SetActive(false);
+    }
+    void GameEnded(){
+        Cursor.visible = true;
+        gameEndedCanvas.SetActive(true);
+        iconCanvas.SetActive(false);
     }
 
     [Space(5)]
@@ -204,6 +208,7 @@ public class GameManager : MonoBehaviour
     RaycastHit2D hit; // hit for player interaction with mouse
     int randomRate; // random result of paper's randoming
     bool gameEnded = false;
+    bool gameOvered = false;
     
     #endregion
 
@@ -277,29 +282,25 @@ public class GameManager : MonoBehaviour
 
     void CheckGamePlay(){
         Debug.Log("Score : " + playerScore);
-<<<<<<< Updated upstream
-        Debug.Log("Played Paper : " + playedPaper);
+        Debug.Log("Amount Paper : " + playedPaper);
         Debug.Log("There is paper ? : " + thereIsPaper);
-        Debug.Log("Nak paper : " + currentAmountNaksPaper);
-        Debug.Log("paper amount : " + currentAmountPaper);
-        playedPaper_Text.text = (maxPaper-currentAmountPaper+1).ToString();
-        playedNakApproved_Text.text = (playedNakApproved).ToString();
-        falseDecision_Text.text = 0+"/"+3;
-=======
-        //Debug.Log("Amount Paper : " + playedPaper);
-        //Debug.Log("There is paper ? : " + thereIsPaper);
         Debug.Log("Nak paper : " + playedNaksPaper);
         Debug.Log("Approved Nak's paper : " + approvedNaksPaper);
         Debug.Log("Denied Nak's papers : " + deniedNaksPaper);
         Debug.Log("Paper left : " + paperLeft);
         Debug.Log("Nak's paper left : " + (maxNakPaper - playedNaksPaper).ToString());
->>>>>>> Stashed changes
     }
 
-    void CheckEndGame(){
+    async void CheckEndGame(){
         if (playedPaper == maxPaper){
+            await Task.Delay(3000);
             gameEnded = true;
             Debug.Log("The game has end");
+        }
+        if (falseDecision == 3){
+            await Task.Delay(3000);
+            gameOvered = true;
+            Debug.Log("The game has over");
         }
     }
 
@@ -309,9 +310,22 @@ public class GameManager : MonoBehaviour
         falseDecision_Text.text = falseDecision.ToString();
     }
 
+    void GamePlay(){
+        if(gameOvered){
+                GameOver();
+                return;
+            }
+            if(gameEnded){
+                GameEnded();
+                return;
+            }
+            Aiming();
+            GeneratePaper();
+            UpdateText();
+    }
+
     private void Awake() {
         _mainManage = this;
-        Debug.Log(_mainManage);
     }
 
     void Start()
@@ -327,14 +341,10 @@ public class GameManager : MonoBehaviour
         if(!isCutScene){
             CheckEndGame();
             //CheckGamePlay();
-            if(!gameEnded){
-                Aiming();
-                GeneratePaper();
-                UpdateText();
-            }else{
-                GameOver();
-            } 
-        }
+            if(!isCutScene){
+                GamePlay();
+            }
         
+        }
     }
 }

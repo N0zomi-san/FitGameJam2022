@@ -72,13 +72,10 @@ public class Paper : MonoBehaviour
 
     async void Start()
     {
-        animatingState = true;
         thisSprite = GetComponent<SpriteRenderer>();
         paperAnimator = GetComponent<Animator>();
         GameManager.mainManage.thereIsPaper = true;
         paperAnimator = GetComponent<Animator>();
-        await Task.Delay(3000);
-        animatingState = false;
     }
 
     
