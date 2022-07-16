@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
     }
     float elapsedTime; // Time elapsed when lerp started
 
-    async void BlackFadingIn(int duration){ // fading to Black
+    IEnumerator BlackFadingIn(int duration){
         elapsedTime = 0;   
         var end = Time.time + duration;
         Color targetColor = blackFadingSquare.color;
@@ -88,18 +88,18 @@ public class GameManager : MonoBehaviour
             targetColor.a = alpha;
             blackFadingSquare.color = targetColor;
             //Debug.Log("bf : " + alpha);
-            await Task.Yield();
+            yield return null;
         }
     }
-    async void Showing(){
+
+    IEnumerator ShowStart(){
         // Load First Set
-        await Task.Delay(3000);
+        yield return new WaitForSeconds(3);
         GameObject border01 = Instantiate(BorderList[0], transform.position, Quaternion.identity);
         for (int i = 0; i < pictureList01.Count; i++){
             Instantiate(pictureList01[i], PosList01[i], Quaternion.identity).transform.SetParent(border01.transform);
-            await Task.Delay(3000);
+            yield return new WaitForSeconds(3);
         }
-        await Task.Delay(2000);
 
         // Destroy First Set
         Destroy(border01);
@@ -108,15 +108,15 @@ public class GameManager : MonoBehaviour
         GameObject border02 = Instantiate(BorderList[1], transform.position, Quaternion.identity);
         for (int i = 0; i < pictureList02.Count; i++){
             Instantiate(pictureList02[i], PosList02[i], Quaternion.identity).transform.SetParent(border02.transform);
-            await Task.Delay(3000);
+            yield return new WaitForSeconds(3);
         }
+        
 
         // Destroy Second Set
         Destroy(border02);
-
     }
 
-    async void BlackFadingOut(int duration){  // fading to White
+    IEnumerator BlackFadingOut(int duration){
         elapsedTime = 0;
         var end = Time.time + duration;
         Color targetColor = blackFadingSquare.color;
@@ -129,22 +129,21 @@ public class GameManager : MonoBehaviour
                 targetColor.a = alpha;
                 blackFadingSquare.color = targetColor;
                 //Debug.Log("af : " + alpha);
-                await Task.Yield();
+                yield return null;
             }
     }
-    async void StartCutscene(string folderName){
+    IEnumerator StartCutscene(){
         isCutScene = true;
         OpenCloseCanvas(false);
         Color setBlack = blackFadingSquare.color;
         setBlack.a = 1;
         blackFadingSquare.color = setBlack;
-        //BlackFadingIn(fadingSeconds); // fading in
-        //await Task.Delay(4000);
-        Showing();
-        await Task.Delay(30000);
+        yield return new WaitForSeconds(4);
+        StartCoroutine(ShowStart());
+        yield return ShowStart();
         OpenCloseCanvas(true);
         SetCanvas();
-        BlackFadingOut(fadingSeconds); // fading out
+        StartCoroutine(BlackFadingOut(fadingSeconds)); // fading out
         isCutScene = false;
     }
 
@@ -291,14 +290,14 @@ public class GameManager : MonoBehaviour
         Debug.Log("Nak's paper left : " + (maxNakPaper - playedNaksPaper).ToString());
     }
 
-    async void CheckEndGame(){
+    IEnumerator CheckEndGame(){
         if (playedPaper == maxPaper){
-            await Task.Delay(3000);
+            yield return new WaitForSeconds(3);
             gameEnded = true;
             Debug.Log("The game has end");
         }
         if (falseDecision == 3){
-            await Task.Delay(3000);
+            yield return new WaitForSeconds(3);
             gameOvered = true;
             Debug.Log("The game has over");
         }
@@ -330,16 +329,16 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-         CheckBFstart();
-         SetCanvas();
-         StartCutscene("StartCutscene");
+        CheckBFstart();
+        SetCanvas();
+        StartCoroutine(StartCutscene());
     }
 
     
     void Update()
     {
         if(!isCutScene){
-            CheckEndGame();
+            StartCoroutine(CheckEndGame());
             //CheckGamePlay();
             if(!isCutScene){
                 GamePlay();
